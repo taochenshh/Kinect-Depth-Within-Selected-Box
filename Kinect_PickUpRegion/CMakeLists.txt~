@@ -133,14 +133,14 @@ include_directories(
 # add_dependencies(kinect_pick_points ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-add_executable(kinect_pickup_regions_node src/pickup_regions.cpp)
+add_executable(kinect_pick_points_node src/pick_points.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(kinect_pick_points_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(kinect_pickup_regions_node
+target_link_libraries(kinect_pick_points_node
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
 )
