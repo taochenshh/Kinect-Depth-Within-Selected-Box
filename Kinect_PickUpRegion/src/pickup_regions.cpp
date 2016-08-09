@@ -1,10 +1,3 @@
-/*
- * image_converter.cpp
- *
- *  Created on: Aug 2, 2016
- *      Author: chentao
- */
-
 #include <ros/ros.h>
 #include <image_transport/image_transport.h>
 #include <cv_bridge/cv_bridge.h>
@@ -73,7 +66,6 @@ public:
 	ImageConverter()
 		: it_(nh_)
 	{
-		// Subscrive to input video feed and publish output video feed
 		image_sub_rgb_ = it_.subscribe("rgbinput", 1,
 		                               &ImageConverter::rgbCb, this);
 		image_sub_depth_ = it_.subscribe("depthinput", 1,
@@ -105,9 +97,6 @@ public:
 			return;
 		}
 		cv_ptr->image.copyTo(rgbImage_);
-		// // Draw an example circle on the video stream
-		// if (rgbImage_.rows > 60 && rgbImage_.cols > 60)
-		// 	cv::circle(rgbImage_, cv::Point(55, 55), 5, CV_RGB(255, 0, 0));
 		cv::RNG rng(12345);
 		for (int i = 0; i < rects.size(); i++)
 		{
@@ -125,9 +114,6 @@ public:
 			ss << "Depth" << std::fixed << std::setprecision(2) <<depthF;
 			ss << "cm";
 			std::string text = ss.str();
-			// std::string text = "Depth: ";
-			// text += boost::lexical_cast<std::string>(depthF);
-			// text += "cm";
 			cv::putText(rgbImage_, text, center, cv::FONT_HERSHEY_SIMPLEX , 1.0,
 			            cv::Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255)), 2);
 		}
@@ -152,18 +138,6 @@ public:
 			return;
 		}
 		cv_ptr->image.copyTo(depthImage_);
-		// std::cout << "=============================================================" << std::endl;
-		// std::cout << "Depth" << std::endl;
-		// for (int i = 50; i < 60; i++)
-		// {
-		// 	for (int j = 50; j < 60; j++)
-		// 	{
-		// 		std::cout << (depthImage_.at< cv::Vec<uint16_t, 1> >(i, j)) << " ";
-		// 	}
-		// 	std::cout << std::endl;
-		// }
-		// std::cout << std::endl;
-		// Update GUI Window
 		cv::imshow(OPENCV_DEPTH_WINDOW, cv_ptr->image);
 		cv::waitKey(10);
 	}
@@ -202,9 +176,6 @@ int main(int argc, char** argv)
 				ss << "Depth" << std::fixed << std::setprecision(2) <<depthF;
 				ss << "cm";
 				std::string text = ss.str();
-				// std::string text = "Depth: ";
-				// text += boost::lexical_cast<std::string>(depthF);
-				// text += "cm";
 				cv::putText(tempImage, text, center, cv::FONT_HERSHEY_SIMPLEX , 1.0,
 				            cv::Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255)), 2);
 			}
